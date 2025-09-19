@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frappe-dev
+    ports:
+      - "8000:8000"
+    # volumes:
+      # - ../my_app:/home/frappe/frappe-bench/apps/my_app
+    depends_on:
+      - redis-cache
+      - redis-queue
+      - redis-socketio
+      - mariadb
+    working_dir: /home/frappe
+    command: sleep infinity
+    networks:
+      - frappe-net
+
+  mariadb:
+    image: mariadb:10.6
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: erpnext
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - frappe-net
+    ports:
+      - "3306:3306"
+
+  redis-cache:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - frappe-net
+
+  redis-queue:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - frappe-net
+
+  redis-socketio:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - frappe-net
+
+volumes:
+  mariadb_data:
+
+
+networks:
+  frappe-net:

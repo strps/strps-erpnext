@@ -1,0 +1,10 @@
+{
+  "name": "Frappe Dev",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/home/frappe",
+  // "postCreateCommand": "bench init /home/frappe/frappe-bench --frappe-branch version-15 --skip-redis-config-generation",
+  "customizations": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  }
+}

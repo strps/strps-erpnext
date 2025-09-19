@@ -5,6 +5,16 @@ app_description = "Tattoo shop management system for ERPnext, with intgrations w
 app_email = "csrstrps@gmail.com"
 app_license = "mit"
 
+#Fixtures
+
+fixtures = [
+    {"dt": "Role", "filters": [["name", "in", ["Tattoo Shop Admin", "Artist", "Client"]]]},
+    {"dt": "Role Permission", "filters": [["doc_type", "=", "Customer"]]},
+    {"dt": "Custom Field", "filters": [["dt", "=", "Customer"]]}
+]
+
+
+
 # Apps
 # ------------------
 

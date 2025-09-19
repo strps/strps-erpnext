@@ -1,0 +1,119 @@
+# Tattoo Shop Management System
+This document outlines the main features and implementation plan for a comprehensive tattoo shop management system built on the Frappe Framework with ERPNext integration. The system focuses on appointment scheduling, customer management, product sales, and operational efficiency for a tattoo shop. It leverages ERPNext for core business modules (e.g., CRM, Inventory, Accounting) to minimize custom development.
+
+## Main Features
+
+### Customer Management
+
+Handle client profiles, contact info, and history using ERPNext's built-in Customer DocType.
+Extend for tattoo-specific fields (e.g., allergies, tattoo history).
+Unified CRM integration with appointments and sales.
+
+### Artist Management
+
+Manage tattoo artists with profiles, specialties, availability, and schedules via a custom Artist DocType.
+Features include availability calendar, booking assignments, and performance tracking.
+New: Artist Availability Settings – Ability to set appointment slots or available days for each artist (e.g., define time slots per day, recurring availability). Permissions can be added later to allow artists to manage their own availability or restrict it to studio management.
+
+
+### Appointment Management
+
+Core booking system for tattoos, including scheduling, confirmations, and reminders.
+Features: Calendar view, overbooking prevention, status workflow (Scheduled → Confirmed → Completed → Cancelled), tattoo design descriptions, duration estimates.
+Integration with artist availability to ensure bookings only occur in open slots.
+
+
+### Product Store (Inventory and Sales)
+
+Manage and sell products like tattoo inks, needles, aftercare creams, and merchandise using ERPNext's Item and Stock modules.
+Features: Product catalog, stock levels, pricing, point-of-sale (POS) integration, bundling (e.g., tattoo session + aftercare kit).
+
+
+### Invoicing and Payments
+
+Generate invoices for appointments and product sales using ERPNext's Sales Invoice and Payment Entry.
+Features: Auto-invoice on appointment completion, deposits for bookings, payment gateways (e.g., Stripe), accounting entries.
+
+
+### Notifications and Communications
+
+Automated alerts for bookings, reminders, and updates.
+Features: Email/SMS for confirmations, cancellations, and promotions. Integrated with ERPNext's email system.
+
+
+### Reporting and Analytics
+
+Insights into operations.
+Features: Dashboards for upcoming appointments, sales reports, artist performance, inventory levels. Use ERPNext's built-in reports and custom ones.
+
+
+### User Roles and Permissions
+
+Secure access control.
+Features: Roles like "Shop Admin" (full access), "Artist" (view own schedule), "Client" (book/view own appointments via portal).
+Planned Extension: Permissions for artist availability (self-managed by artists or controlled by studio admins).
+
+### Client Portal and Web Interface
+
+Self-service for customers.
+Features: Web forms for booking appointments, browsing products, viewing invoices. Use ERPNext's Website/Portal modules.
+
+
+### Additional Enhancements
+
+Mobile responsiveness for Desk and portal.
+Integration with calendar apps (e.g., Google Calendar export).
+Compliance: Data privacy for customer info (e.g., GDPR fields).
+
+## Implementation Plan
+The plan is phased for iterative development. Assume a Frappe bench with your custom app (e.g., tattoo_shop) and ERPNext installed. Enable developer_mode: 1 in site_config.json. Use Git for version control. Estimated timeline: 4-6 weeks for a solo developer.
+
+### Phase 1: Setup and Core Structure (1-2 Days)
+
+Verify ERPNext integration and configure Company (currency, fiscal year).
+Customize ERPNext Customer DocType with tattoo-specific fields.
+Create custom DocTypes: Artist and Appointment.
+New: Create Artist Availability DocType – A child or separate DocType linked to Artist (e.g., fields: day_of_week (Select), start_time (Time), end_time (Time), is_recurring (Check)). This will define slots/days.
+Update workspace with shortcuts to key DocTypes.
+
+### Phase 2: Appointment System Implementation (3-5 Days)
+
+Implement scheduling logic in Appointment, including overbooking prevention.
+Integrate Artist Availability: Modify validation in appointment.py to check against available slots (query Artist Availability for the selected artist and date).
+Set up workflow for appointment status.
+Create Web Form for bookings, ensuring slot selection based on artist availability.
+Configure notifications (email/SMS on status changes).
+
+### Phase 3: Product Store Implementation (3-5 Days)
+
+Set up inventory with ERPNext Item and Warehouse.
+Configure POS for in-shop sales.
+Link products to appointments via a child table in Appointment.
+(Optional) Enable e-commerce with ERPNext Website module.
+
+### Phase 4: Invoicing and Payments Integration (2-4 Days)
+
+Add auto-invoicing button/script in Appointment to create Sales Invoice.
+Configure payment gateways and deposits.
+Set up accounting categories in Chart of Accounts.
+
+### Phase 5: Reporting, Roles, and Portal (3-5 Days)
+
+Create custom reports (e.g., artist availability overview).
+Define roles and initial permissions.
+Planned: Add Availability Permissions – In a future iteration, extend roles (e.g., "Artist" can edit own availability if a flag is set; otherwise, only "Admin").
+Enable client portal with menu items for appointments and products.
+
+### Phase 6: Testing, Deployment, and Enhancements (3-5 Days)
+
+End-to-end testing, including availability-based bookings.
+Deploy to production (e.g., Frappe Cloud).
+Enable scheduler and backups.
+Future enhancements: Artist self-management permissions, external calendar sync.
+
+## Tools and Best Practices
+
+Use Desk UI for most configurations; custom code for logic (Python/JS).
+Integration: Reference ERPNext DocTypes directly (e.g., frappe.get_doc("Customer", name)).
+Challenges: Ensure availability data is queried efficiently to avoid performance issues.
+Resources: Frappe/ERPNext docs, forum (discuss.erpnext.com).
