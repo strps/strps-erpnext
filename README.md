@@ -1,6 +1,6 @@
 ### Tattoo Shop
 
-Tattoo shop management system for ERPnext, with intgrations with Ministerion de Hacienda de 
+Management system for ERPnext, with intgrations with Ministerion de Hacienda de 
 
 ### Installation
 
