@@ -1,10 +1,37 @@
 {
-  "name": "Frappe Dev",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "dev",
-  "workspaceFolder": "/home/frappe",
-  // "postCreateCommand": "bench init /home/frappe/frappe-bench --frappe-branch version-15 --skip-redis-config-generation",
+  "name": "Frappe Bench",
+  "forwardPorts": [
+    8000,
+    9000,
+    6787
+  ],
+  "remoteUser": "frappe",
   "customizations": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  }
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-vscode.live-server",
+        "grapecity.gc-excelviewer",
+        "mtxr.sqltools",
+        "visualstudioexptteam.vscodeintellicode"
+      ],
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "frappe bash": {
+            "path": "/bin/bash"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "frappe bash",
+        "debug.node.autoAttach": "disabled"
+      }
+    }
+  },
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "frappe",
+  "workspaceFolder": "/home/frappe/",
+  "shutdownAction": "stopCompose",
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/frappe/.ssh,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "bench init /home/frappe/frappe-bench --frappe-branch version-15 --skip-redis-config-generation",
 }
