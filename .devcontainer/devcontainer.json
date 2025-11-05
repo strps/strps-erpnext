@@ -31,5 +31,8 @@
   "workspaceFolder": "/home/frappe/frappe-bench/apps/tattoo_shop",
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/frappe/.ssh,type=bind,consistency=cached"
-  ]
+  ],
+  "postCreateCommand": "cd /home/frappe/frappe-bench / bench new-site ${SITE_NAME} --db-host ${DB_HOST} --db-root-password ${DB_PASSWORD} --admin-password ${ADMIN_PASSWORD}",
+  
+
 }
