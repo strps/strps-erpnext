@@ -28,10 +28,8 @@
   },
   "dockerComposeFile": "./docker-compose.yml",
   "service": "frappe",
-  "workspaceFolder": "/home/frappe/frappe-bench",
-  "shutdownAction": "stopCompose",
+  "workspaceFolder": "/home/frappe/frappe-bench/apps/tattoo_shop",
   "mounts": [
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/frappe/.ssh,type=bind,consistency=cached"
-  ],
-  "postCreateCommand": "bench init /home/frappe/frappe-bench --frappe-branch version-15 --skip-redis-config-generation",
+  ]
 }
