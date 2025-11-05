@@ -13,6 +13,8 @@ ENV MARIADB_ROOT_PASSWORD=root
 ENV DB_PASSWORD = 123
 ENV DB_PORT=3306
 
+ENV SITE_NAME=localhost
+
 WORKDIR /home/frappe/frappe-bench
 
 RUN bench set-mariadb-host ${DB_HOST}
@@ -20,6 +22,4 @@ RUN bench set-redis-cache-host ${REDIS_CACHE}
 RUN bench set-redis-queue-host ${REDIS_QUEUE}
 RUN bench set-redis-socketio-host ${REDIS_SOCKETIO}
 
-# RUN bench 
-
-# RUN bench new-site localhost 
+RUN bench new-site ${SITE_NAME} --admin-password admin --db-root-password ${MARIADB_ROOT_PASSWORD} --no-mariadb-socket
