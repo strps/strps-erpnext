@@ -49,6 +49,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+
+    depends_on:
+      - mariadb
+      - redis-cache
+      - redis-queue
+      - redis-socketio
     # If you want to build the current bench image the Containerfile is in this Repo.
     # build: ../images/bench
     command: sleep infinity
