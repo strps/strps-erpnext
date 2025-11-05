@@ -23,7 +23,7 @@ RUN bench set-redis-cache-host ${REDIS_CACHE}
 RUN bench set-redis-queue-host ${REDIS_QUEUE}
 RUN bench set-redis-socketio-host ${REDIS_SOCKETIO}
 
-RUN bench new-site ${SITE_NAME} \
-    --db-host ${DB_HOST} \
-    --db-root-password ${DB_PASSWORD} \
-    --admin-password ${ADMIN_PASSWORD}
+#RUN bench new-site ${SITE_NAME} \
+#    --db-host ${DB_HOST} \
+#    --db-root-password ${DB_PASSWORD} \
+#    --admin-password ${ADMIN_PASSWORD}
